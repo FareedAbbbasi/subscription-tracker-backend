@@ -8,11 +8,15 @@ import connectToDatabase from "./database/mongodb.js";
 import userRouter from "./routes/user.routes.js";
 import errorMiddleware from "./middleware/error.middleware.js";
 import cookieParser from "cookie-parser";
+import arcjetMiddleware from "./middleware/arcjet.middleware.js";
 
 const app = express();
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser())
+
+app.use(arcjetMiddleware)
 
 app.use('/api/v1/auth', auth)
 app.use('/api/v1/users', userRouter)
