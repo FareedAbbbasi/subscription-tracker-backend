@@ -64,7 +64,6 @@ export const signIn  = async (req, res, next) => {
         }
 
         const isPasswordValid = await bcrypt.compare(password, user.password);
-        console.log("isPasswordValid: ", isPasswordValid);
 
         if (!isPasswordValid) {
             const error = new Error("Invalid Password");
@@ -74,7 +73,7 @@ export const signIn  = async (req, res, next) => {
 
         const token = jwt.sign({userId: user._id}, JWT_SECRET, {expiresIn: JWT_EXPIRES_IN});
 
-        res.status(201).json({
+        res.status(200).json({
             success: true,
             message: "user sign in successfully",
             data: {
