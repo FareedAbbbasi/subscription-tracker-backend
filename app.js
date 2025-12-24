@@ -10,16 +10,15 @@ import errorMiddleware from "./middleware/error.middleware.js";
 import cookieParser from "cookie-parser";
 
 const app = express();
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser())
 
 app.use('/api/v1/auth', auth)
 app.use('api/v1/users', userRouter)
 app.use('/api/v1/subscription', subscription)
 
 app.use(errorMiddleware)
-app.use(cookieParser())
 
 app.get("/", (req, res) => {
     res.send("Hello World!");
@@ -30,5 +29,4 @@ app.listen(PORT, async () => {
     await connectToDatabase();
 })
 
-
-export default app
+export default app;
