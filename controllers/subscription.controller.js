@@ -37,7 +37,7 @@ export const getAllSubscriptions = async ( req, res, next ) => {
     try { 
         const subscription = await Subscription.find();
 
-        if (!subscription) {
+        if (subscription.length === 0) {
             const error = new Error("No subscription is found");
             error.status = 404;
             throw error;
@@ -53,9 +53,9 @@ export const getAllSubscriptions = async ( req, res, next ) => {
 export const getSubscriptionDetails = async ( req, res, next ) => {
     try {
         const _id = req.params.id;
-        const subscriptionDetails = await Subscription.find({_id})
+        const subscriptionDetails = await Subscription.findOne({_id});
 
-        res.status(200).json({ success: true, data: subscriptionDetails})
+        res.status(200).json({ success: true, data: subscriptionDetails});
     } catch (e) {
         next(e)
     }
